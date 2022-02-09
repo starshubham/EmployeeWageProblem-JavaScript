@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<script>
+'use strict';
+
+function askDefault(yes, no, theQue = 'Can you Answer?') {
+    if (quesiton(theQue)) yes();
+    else no;
+}
+
+function ask(theQue, ...others) {
+    if (quesiton(theQue)) others[0]()
+    else others[1]();
+}
+
+function showOk() {
+    alert ("You agreed.");
+}
+
+function showCancel() {
+    alert ("You canceled the execution.");
+}
+
+let quesiton = function(theQue) {
+    return confirm(theQue);
+}
+
+// Usage: functions showOk, showCancel are passed as arguement to ask
+ask("Do you agree?", showOk, showCancel);
+askDefault(showOk, showCancel);
+</script>
+</html>
