@@ -10,3 +10,4 @@
         console.log("UC1 - Employee is PRESENT");
     }
 }
+
