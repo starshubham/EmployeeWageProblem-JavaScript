@@ -281,15 +281,45 @@ b. Show the full workings days, part working days and no working days
         let empHrs = getWorkingHours(empCheck);
         totalEmpHrs += empHrs;
         empDailyHrsAndWageArr.push(
-        {
-            dayNum:totalWorkingDays,
-            dailyHours:empHrs,
-            dailyWage: calcDailyWage(empHrs),
-            toString() {
-                return "\nDay" + this.dayNum + " => Working Hours is " + this.dailyHours +
+            {
+                dayNum: totalWorkingDays,
+                dailyHours: empHrs,
+                dailyWage: calcDailyWage(empHrs),
+                toString() {
+                    return "\nDay" + this.dayNum + " => Working Hours is " + this.dailyHours +
                         " And Wage Earned = " + this.dailyWage
-            },
-        });
+                },
+            });
     }
     console.log("\nUC10 Showing Daily Hours Worked and Wage Earned: " + empDailyHrsAndWageArr);
+
+
+    /* UC11 : Perform following Object operations using Arrow Functions
+    a. Calc total Wage and total hours worked
+    b. Show the full workings days using foreach
+    c. Show Part working days using Map by reducing to String Array
+    d. No working days only using Map function
+    */
+
+    let totalWages = empDailyHrsAndWageArr
+        .filter(dailyHrsAndWage => dailyHrsAndWage.dailyWage > 0)
+        .reduce((totalWage, dailyHrsAndWage) => totalWage += dailyHrsAndWage.dailyWage, 0);
+    let totalHours = empDailyHrsAndWageArr
+        .filter(dailyHrsAndWage => dailyHrsAndWage.dailyWage > 0)
+        .reduce((totalHours, dailyHrsAndWage) => totalHours += dailyHrsAndWage.dailyHours, 0);
+    console.log("\nUC 11A - Total Hours: " + totalHours + " Total Wages: " + totalWages);
+
+    empDailyHrsAndWageArr
+        .filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours == 8)
+        .forEach(dailyHrsAndWage => console.log( dailyHrsAndWage.toString()) );
+
+    let partWorkingDaysStrArr = empDailyHrsAndWageArr
+        .filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours == 4)
+        .map(dailyHrsAndWage => dailyHrsAndWage.toString());
+    console.log("\nUC 11C - PartWorkingDayStrings: " + partWorkingDaysStrArr);
+    
+    let nonWorkingDayNums = empDailyHrsAndWageArr
+        .filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours == 0)
+        .map(dailyHrsAndWage => dailyHrsAndWage.dayNum);
+    console.log("\nUC 11D - NonWorkingDayNums: " + nonWorkingDayNums);
 }
